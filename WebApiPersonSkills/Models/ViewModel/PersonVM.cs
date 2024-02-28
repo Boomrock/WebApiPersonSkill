@@ -1,5 +1,4 @@
-﻿
-namespace WebApiPersonSkills.Models.ViewModel
+﻿namespace WebApiPersonSkills.Models.ViewModel
 {
     public class PersonVM
     {

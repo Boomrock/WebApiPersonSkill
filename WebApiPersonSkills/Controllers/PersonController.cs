@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using WebApiPersonSkills;
 using WebApiPersonSkills.Models;
 using WebApiPersonSkills.Models.ViewModel;
 
-namespace YourNamespace.Controllers
+namespace WebApiPersonSkills.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
