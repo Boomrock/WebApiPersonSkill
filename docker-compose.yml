@@ -2,13 +2,43 @@ version: '3.4'
 networks:
   personskillsapi:
     driver: bridge
+  authnetwork:
+    driver: bridge
 
 services:
+  authservicedb:
+    container_name: authservicedb
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 8003:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=password@12345#  
+    networks:
+      - authnetwork
+
+  authservice: 
+    container_name: authservice
+    build:
+      context: .
+      dockerfile: AuthApi/Dockerfile
+    image: ${DOCKER_REGISTRY-}authservice
+    ports:
+      - 8004:80 
+    depends_on:
+      - authservicedb
+    environment:
+      - DB_HOST=authservicedb
+      - DB_NAME=authservicedb
+      - DB_PASSWORD=password@12345# 
+    networks:
+      - authnetwork
+
   dbpersonskills:
     container_name: dbpersonskills
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
-      - 1433:1433
+      - 8002:1433
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=password@12345#  
